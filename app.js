@@ -1,13 +1,6 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
-const {db} = require('./src/db/connection')
-
-/*db.query('SELECT * FROM cliente',(err,result)=>{
-  if(err){
-    console.log('Houve um erro ao conectar: ${err}')
-  }
-    console.table(result.rows)  
-})*/
+const clienteController = require('./src/controllers/ClienteController')
 
 const app = express()
 const port = 3000
@@ -35,28 +28,12 @@ app.get('/categoria-produto/adicionar',(req,res)=>{
 
 // ROTAS CLIENTE CADASTRO
 
-app.get('/cliente/listar',(req,res)=>{
-  db.query('SELECT * FROM cliente', (err,result)=>{
-    if(err){
-      console.log('Houve um erro ao listar cliente: ${err}')
-    }
-      res.render('cliente/listar',{clientes:result.rows})
-  })
-})
-
-app.get('/cliente/adicionar',(req,res)=>{
-  res.render('cliente/adicionar')
-})
-app.post('/cliente/salvar',(req,res)=>{
-  const query = {
-    text: 'INSERT INTO cliente(nome,cpf) VALUES($1,$2)',
-    values:[req.body.nome, req.body.cpf]
-  }
-  db.query(query,(err,result)=>{
-    console.log(result)
-  })
-  res.redirect('/cliente/listar')
-})
+app.get('/cliente/listar', clienteController.index)
+app.get('/cliente/adicionar', clienteController.create)
+app.post('/cliente/salvar',clienteController.store)
+app.get('/cliente/editar/:id',clienteController.edit)
+app.post('/cliente/atualizar',clienteController.update)
+app.get('/cliente/excluir/:id',clienteController.delete)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
