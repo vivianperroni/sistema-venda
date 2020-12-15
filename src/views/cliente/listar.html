@@ -7,7 +7,7 @@
             <h3>Clientes</h3>
         </header>
         <div class="card-body">
-            <a href="/clientes/adicionar" class="btn btn-primary">Adicionar</a>
+            <a href="/cliente/adicionar" class="btn btn-primary">Adicionar</a>
             <table class="table">
                 <thead>
                     <th>ID</th>
@@ -16,11 +16,11 @@
                     <th>Ações</th>
                 </thead>
                 <tbody>
-                    {% for categoria in categorias %} 
+                    {% for cliente in clientes %} 
                         <tr>
-                            <td>{{ categoria.id }}</td>
-                            <td>{{ categoria.nome }}</td>
-                            <td>{{ categoria.cpf }}</td>
+                            <td>{{ cliente.id }}</td>
+                            <td>{{ cliente.nome }}</td>
+                            <td>{{ cliente.cpf }}</td>
                             <td>
                                 <a href="#">Editar</a>
                                 <a href="#">Excluir</a>
@@ -29,8 +29,8 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div><!-- card-body -->
-    </section><!-- card-->
+        </div>
+    </section>
 
    
 {% endblock %}

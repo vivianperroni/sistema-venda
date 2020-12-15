@@ -1,10 +1,18 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
+const {db} = require('./src/db/connection')
 
+/*db.query('SELECT * FROM cliente',(err,result)=>{
+  if(err){
+    console.log('Houve um erro ao conectar: ${err}')
+  }
+    console.table(result.rows)  
+})*/
 
 const app = express()
 const port = 3000
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}))
 app.set('view engine','.html')
 
 nunjucks.configure('./src/views', {
@@ -25,15 +33,30 @@ app.get('/categoria-produto/adicionar',(req,res)=>{
   res.render('categoria-produto/adicionar')
 })
 
-app.get('/clientes/listar',(req,res)=>{
-  let {clientes} = require('./src/db/fakeData')
-  res.render('clientes/listar',{categorias:clientes})
+// ROTAS CLIENTE CADASTRO
+
+app.get('/cliente/listar',(req,res)=>{
+  db.query('SELECT * FROM cliente', (err,result)=>{
+    if(err){
+      console.log('Houve um erro ao listar cliente: ${err}')
+    }
+      res.render('cliente/listar',{clientes:result.rows})
+  })
 })
 
-app.get('/clientes/adicionar',(req,res)=>{
-  res.render('clientes/adicionar')
+app.get('/cliente/adicionar',(req,res)=>{
+  res.render('cliente/adicionar')
 })
-
+app.post('/cliente/salvar',(req,res)=>{
+  const query = {
+    text: 'INSERT INTO cliente(nome,cpf) VALUES($1,$2)',
+    values:[req.body.nome, req.body.cpf]
+  }
+  db.query(query,(err,result)=>{
+    console.log(result)
+  })
+  res.redirect('/cliente/listar')
+})
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
