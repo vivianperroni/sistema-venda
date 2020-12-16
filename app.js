@@ -1,6 +1,8 @@
 const express = require('express')
 const nunjucks = require('nunjucks')
 const clienteController = require('./src/controllers/ClienteController')
+const categoriaController = require('./src/controllers/CategoriaController')
+
 
 const app = express()
 const port = 3000
@@ -17,16 +19,16 @@ app.get('/',(req,res)=>{
   res.render('index')
 })
 
-app.get('/categoria-produto/listar',(req,res)=>{
-  let {categoriasDeProduto} = require('./src/db/fakeData')
-  res.render('categoria-produto/listar',{categorias:categoriasDeProduto})
-})
+// ROTAS CATEGORIA
 
-app.get('/categoria-produto/adicionar',(req,res)=>{
-  res.render('categoria-produto/adicionar')
-})
+app.get('/categoria-produto/listar', categoriaController.index)
+app.get('/categoria-produto/adicionar', categoriaController.create)
+app.post('/categoria-produto/salvar',categoriaController.store)
+app.get('/categoria-produto/editar/:id',categoriaController.edit)
+app.post('/categoria-produto/atualizar',categoriaController.update)
+app.get('/categoria-produto/excluir/:id',categoriaController.delete)
 
-// ROTAS CLIENTE CADASTRO
+// ROTAS CLIENTE
 
 app.get('/cliente/listar', clienteController.index)
 app.get('/cliente/adicionar', clienteController.create)
