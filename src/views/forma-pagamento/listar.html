@@ -1,0 +1,34 @@
+{% extends "template.html" %}
+
+{% block main %}
+
+    <section class="card m-5">
+        <header class="card-header">
+            <h3>Forma de Pagamento</h3>
+        </header>
+        <div class="card-body">
+            <a href="/forma-pagamento/adicionar" class="btn btn-primary">Adicionar</a>
+            <table class="table">
+                <thead>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Ações</th>
+                </thead>
+                <tbody>
+                    {% for forma in formas %} 
+                        <tr>
+                            <td>{{ forma.id }}</td>
+                            <td>{{ forma.descricao }}</td>
+                            <td>
+                                <a href="/forma-pagamento/editar/{{forma.id}}">Editar</a>
+                                <a href="/forma-pagamento/excluir/{{forma.id}}">Excluir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+   
+{% endblock %}
