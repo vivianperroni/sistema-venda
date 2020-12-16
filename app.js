@@ -2,7 +2,7 @@ const express = require('express')
 const nunjucks = require('nunjucks')
 const clienteController = require('./src/controllers/ClienteController')
 const categoriaController = require('./src/controllers/CategoriaController')
-
+const usuarioController = require('./src/controllers/UsuarioController')
 
 const app = express()
 const port = 3000
@@ -18,6 +18,16 @@ nunjucks.configure('./src/views', {
 app.get('/',(req,res)=>{
   res.render('index')
 })
+
+// ROTAS USUARIO
+
+app.get('/usuario/listar', usuarioController.index)
+app.get('/usuario/adicionar', usuarioController.create)
+app.post('/usuario/salvar',usuarioController.store)
+app.get('/usuario/editar/:id',usuarioController.edit)
+app.post('/usuario/atualizar',usuarioController.update)
+app.get('/usuario/excluir/:id',usuarioController.delete)
+
 
 // ROTAS CATEGORIA
 
