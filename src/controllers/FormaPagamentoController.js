@@ -4,9 +4,6 @@ class FormaPagamentoController{
     
     index(req,res){
         db.query('SELECT * FROM forma_pagamento', (err,result)=>{
-            if(err){
-              console.log('Houve um erro ao listar: ${err}')
-            }
               res.render('forma-pagamento/listar',{formas:result.rows})
           })
     }
@@ -19,9 +16,6 @@ class FormaPagamentoController{
         values:[req.body.descricao]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao inserir a forma de pagamento: ${err}')
-        }
         res.redirect('/forma-pagamento/listar')
       })
     }
@@ -32,9 +26,6 @@ class FormaPagamentoController{
         values:[req.params.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao editar: ${err}')
-        }
           res.render('forma-pagamento/editar',{forma:result.rows[0]})
       })
     }
@@ -45,9 +36,6 @@ class FormaPagamentoController{
         values:[dados.descricao, dados.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro na atualização: ${err}')
-        }
           res.redirect('/forma-pagamento/listar')
       })
     }
@@ -58,9 +46,6 @@ class FormaPagamentoController{
         values:[id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao excluir: ${err}')
-        }
         res.redirect('/forma-pagamento/listar')
       })
     }

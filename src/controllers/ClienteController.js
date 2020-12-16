@@ -4,9 +4,6 @@ class ClienteController{
     
     index(req,res){
         db.query('SELECT * FROM cliente', (err,result)=>{
-            if(err){
-              console.log('Houve um erro ao listar cliente: ${err}')
-            }
               res.render('cliente/listar',{clientes:result.rows})
           })
     }
@@ -19,9 +16,6 @@ class ClienteController{
         values:[req.body.nome, req.body.cpf]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro: ${err}')
-        }
         res.redirect('/cliente/listar')
       })
     }
@@ -32,9 +26,6 @@ class ClienteController{
         values:[req.params.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao editar: ${err}')
-        }
           res.render('cliente/editar',{cliente:result.rows[0]})
       })
     }
@@ -45,9 +36,6 @@ class ClienteController{
         values:[dados.nome, dados.cpf, dados.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro na atualização: ${err}')
-        }
           res.redirect('/cliente/listar')
       })
     }
@@ -58,9 +46,6 @@ class ClienteController{
         values:[id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao excluir: ${err}')
-        }
         res.redirect('/cliente/listar')
       })
     }

@@ -4,9 +4,6 @@ class CategoriaController{
     
     index(req,res){
         db.query('SELECT * FROM categoria_produto', (err,result)=>{
-            if(err){
-              console.log('Houve um erro ao listar: ${err}')
-            }
               res.render('categoria-produto/listar',{categorias:result.rows})
           })
     }
@@ -19,9 +16,6 @@ class CategoriaController{
         values:[req.body.descricao]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao inserir a categoria: ${err}')
-        }
         res.redirect('/categoria-produto/listar')
       })
     }
@@ -32,9 +26,6 @@ class CategoriaController{
         values:[req.params.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao editar: ${err}')
-        }
           res.render('categoria-produto/editar',{categoria:result.rows[0]})
       })
     }
@@ -45,9 +36,6 @@ class CategoriaController{
         values:[dados.descricao, dados.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro na atualização: ${err}')
-        }
           res.redirect('/categoria-produto/listar')
       })
     }
@@ -58,9 +46,6 @@ class CategoriaController{
         values:[id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao excluir: ${err}')
-        }
         res.redirect('/categoria-produto/listar')
       })
     }

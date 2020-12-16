@@ -4,9 +4,6 @@ class UsuarioController{
     
     index(req,res){
         db.query('SELECT * FROM usuario', (err,result)=>{
-            if(err){
-              console.log('Houve um erro ao listar usuario: ${err}')
-            }
               res.render('usuario/listar',{usuarios:result.rows})
           })
     }
@@ -19,9 +16,6 @@ class UsuarioController{
         values:[req.body.nome, req.body.email, req.body.senha]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro: ${err}')
-        }
         res.redirect('/usuario/listar')
       })
     }
@@ -32,9 +26,6 @@ class UsuarioController{
         values:[req.params.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao editar: ${err}')
-        }
           res.render('usuario/editar',{usuario:result.rows[0]})
       })
     }
@@ -45,9 +36,6 @@ class UsuarioController{
         values:[dados.nome, dados.email, dados.senha, dados.id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro na atualização: ${err}')
-        }
           res.redirect('/usuario/listar')
       })
     }
@@ -58,9 +46,6 @@ class UsuarioController{
         values:[id]
       }
       db.query(query,(err,result)=>{
-        if(err){
-          console.log('Houve um erro ao excluir: ${err}')
-        }
         res.redirect('/usuario/listar')
       })
     }
