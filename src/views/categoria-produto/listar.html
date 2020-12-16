@@ -20,15 +20,15 @@
                             <td>{{ categoria.id }}</td>
                             <td>{{ categoria.descricao }}</td>
                             <td>
-                                <a href="#">Editar</a>
-                                <a href="#">Excluir</a>
+                                <a href="/categoria-produto/editar/{{categoria.id}}">Editar</a>
+                                <a href="/categoria-produto/excluir/{{categoria.id}}">Excluir</a>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        </div><!-- card-body -->
-    </section><!-- card-->
+        </div>
+    </section>
 
    
 {% endblock %}
